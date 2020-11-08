@@ -1,13 +1,8 @@
-language: python
-python:
-  - "3.7"
-install:
-  - pip install markdown2
-  - pip wheel . -w dist
+language: minimal
+services:
+  - docker
 script:
-  - cd dist
-  - find . -type f -printf '[%P](%p)  \n' >index.md
-  - python -m markdown2 index.md >index.html
+  - /bin/bash docker.sh
 deploy:
   provider: pages
   skip-cleanup: true
