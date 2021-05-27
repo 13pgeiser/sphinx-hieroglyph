@@ -17,8 +17,6 @@ docker_configure() { #helpmsg: Basic compatibility for MSYS
 	fi
 	DOCKER_RUN_CMD="docker run --rm  $DOCKER_FLAGS -u $(id -u):$(id -g)"
 	export DOCKER_RUN_CMD
-	DOCKER_BUILDKIT=1
-	export DOCKER_BUILDKIT
 }
 
 docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
