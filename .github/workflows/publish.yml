@@ -1,0 +1,20 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Publish packages
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: /bin/bash build.sh
+    - name: Deploy on github pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: dist
+
