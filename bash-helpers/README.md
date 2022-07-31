@@ -1,5 +1,7 @@
 # Bash Helper scripts.
 
+![Check status](https://github.com/13pgeiser/bash-helpers/actions/workflows/check.yml/badge.svg)
+
 To add to a repo:
 
 ```

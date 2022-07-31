@@ -26,7 +26,7 @@ docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
 	export IMAGE_NAME
 	VOLUME_NAME="${USER}_home"
 	export VOLUME_NAME
-	DOCKERFILE="Dockerfile"
+	DOCKERFILE="docker/Dockerfile"
 	export DOCKERFILE
 	DOCKER_RUN_BASE="$DOCKER_RUN_CMD -v $VOLUME_NAME:/home/$USER -v $(pwd):/mnt --name ${IMAGE_NAME}_container"
 	export DOCKER_RUN_BASE
@@ -37,15 +37,19 @@ docker_setup() { #helpmsg: Setup variables for docker: image, volume, ...
 }
 
 docker_build_image_and_create_volume() { # create the volume for the home user and build the docker image
-	docker volume create "$VOLUME_NAME"
-	docker build -t "$IMAGE_NAME" . --build-arg UID="$(id -u)" --build-arg GID="$(id -g)" --build-arg USER="$USER"
+	(
+		cd "$(dirname "$DOCKERFILE")" || exit
+		docker volume create "$VOLUME_NAME"
+		docker build -t "$IMAGE_NAME" . --build-arg UID="$(id -u)" --build-arg GID="$(id -g)" --build-arg USER="$USER"
+	)
 }
 
 dockerfile_create() { #helpmsg: Start the dockerfile
+	mkdir -p "$(dirname "$DOCKERFILE")"
 	cat >$DOCKERFILE <<'EOF'
 # Automatically created!
 # DO NOT EDIT!
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 # Configure current user
 ARG USER=host_user
 ARG UID=1000
