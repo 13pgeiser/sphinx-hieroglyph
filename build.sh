@@ -1,10 +1,10 @@
 #!/bin/bash
 set -ex
-source bash-helpers/helpers.sh
+source bash-scripts/helpers.sh
 docker_setup "sphinx-hieroglyph"
 dockerfile_create
 dockerfile_setup_python
-echo "RUN python3 -m pip install --no-cache-dir markdown2" >>"$DOCKERFILE"
+echo "RUN python3 -m pip install --break-system-packages --no-cache-dir markdown2" >>"$DOCKERFILE"
 dockerfile_switch_to_user
 docker_build_image_and_create_volume
 run_shfmt_and_shellcheck

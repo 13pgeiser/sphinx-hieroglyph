@@ -1,2 +1,5 @@
+__pycache__
+build
 dist
 Dockerfile
+src/hieroglyph.egg-info
