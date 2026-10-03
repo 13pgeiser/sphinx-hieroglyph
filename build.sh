@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ex
+git submodule update --init
 source bash-scripts/helpers.sh
 docker_setup "sphinx-hieroglyph"
 dockerfile_create
